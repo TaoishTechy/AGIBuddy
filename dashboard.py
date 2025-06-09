@@ -415,7 +415,7 @@ def index():
         <h1>🔥 AGIBuddy Dashboard</h1>
         <div class="nav-links">
             <a href="/entities">📋 Entities</a>
-            <a href="/arena">⚔️ Arena</a>
+            <a href="/arena/forum">⚔️ Arena</a>
             <a href="/prompts">🗣️ Prompts</a>
             <a href="/village">🏘️ Village</a>
             <a href="/world">🌍 World</a>
