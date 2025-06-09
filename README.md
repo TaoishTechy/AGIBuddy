@@ -69,6 +69,12 @@ Install the required Python packages using the provided `requirements.txt`:
   - `pytest==8.2.2`: For unit testing.
   - `requests==2.32.3`: For API interaction testing.
 
+### Installation
+**Clone the Repository**:
+   ```bash
+   git clone https://github.com/TaoishTechy/AGIBuddy.git
+   cd AGIBuddy
+```
 **Install Required Modules**:
    ```bash
    pip3 install -r requirements.txt
@@ -79,12 +85,7 @@ or
    ```bash
    pip3 install fastapi uvicorn PyPDF2 pydantic qiskit
 ```
-### Installation
-**Clone the Repository**:
-   ```bash
-   git clone https://github.com/TaoishTechy/AGIBuddy.git
-   cd AGIBuddy
-```
+
 ## Setup ##
 **Create Entities**:
    ```bash
