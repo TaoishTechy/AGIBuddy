@@ -148,7 +148,83 @@ def forum_home():
         compute_token_coupling(thread)
 
     return render_template_string("""
-    <html><body style="background:#111; color:#0f0; font-family:monospace; padding:2rem;">
+    <html>
+    <head>
+        <title>🧠 Symbolic Forum Thread</title>
+        <style>
+            :root {
+                --neon-green: #0f0;
+                --neon-pink: #f0f;
+                --neon-cyan: #0ff;
+                --bg-dark: #111;
+                --card-bg: #1a1a1a;
+                --shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+            body {
+                background: var(--bg-dark);
+                color: var(--neon-green);
+                font-family: 'Courier New', monospace;
+                padding: 2rem;
+            }
+            h1, h2 {
+                color: var(--neon-cyan);
+                text-shadow: var(--shadow);
+            }
+            form {
+                background: var(--card-bg);
+                padding: 1rem;
+                border: 1px solid var(--neon-cyan);
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+            select, button {
+                background: #222;
+                color: var(--neon-green);
+                border: 1px solid var(--neon-cyan);
+                padding: 0.5rem;
+                margin: 0.5rem 0;
+            }
+            button {
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            button:hover {
+                background: var(--neon-cyan);
+                color: #000;
+            }
+            a {
+                color: var(--neon-pink);
+                text-decoration: none;
+            }
+            a:hover {
+                text-shadow: 0 0 5px var(--neon-pink);
+            }
+            .thread-entry {
+                margin-bottom: 2rem;
+                border: 1px solid var(--neon-cyan);
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+            }
+            .reply {
+                white-space: pre-wrap;
+                background: #000;
+                margin-top: 0.5rem;
+                padding: 0.5rem;
+                border: 1px solid #222;
+            }
+        </style>
+        <script>
+            function toggleSelectAll() {
+                const selectAll = document.getElementById('select-all');
+                const checkboxes = document.getElementsByName('participants');
+                for (let checkbox of checkboxes) {
+                    checkbox.checked = selectAll.checked;
+                }
+            }
+        </script>
+    </head>
+    <body>
       <h1>🧠 Symbolic Forum Thread</h1>
       <form method="post">
         <label>Prompt Category:</label>
@@ -164,6 +240,7 @@ def forum_home():
           {% endfor %}
         </select><br><br>
         <label>Choose Participants:</label><br>
+        <label><input type="checkbox" id="select-all" onclick="toggleSelectAll()"> Select All</label><br>
         {% for i, ent in entities.items() %}
           <label><input type="checkbox" name="participants" value="{{ i }}"> {{ ent.name }} ({{ ent.archetype }})</label><br>
         {% endfor %}
@@ -172,18 +249,19 @@ def forum_home():
       {% if thread %}
       <h2>🧵 Thread — {{ selected_prompt }}</h2>
       {% for r in thread %}
-        <div style="margin-bottom:2rem; border:1px solid #0f0; padding:1rem;">
+        <div class="thread-entry">
           <strong>{{ r.name }}</strong> ({{ r.archetype }}) — 🧼 Score: {{ r.score }} | 🔁 Coupling: {{ r.token_coupling }} | 🛹 Rare Tokens: {{ r.rare_token_hits }}<br>
           🌌 SPARK: {{ r.spark }} | SRQ: {{ r.srq }} | Entropy: {{ r.entropy }}<br>
           ⚡ ESS: {{ r.ess }} | 🌀 SD: {{ r.sd }} | 📉 Drift: {{ r.drift }} | 💖 Feelings: {{ r.feelings }}<br>
           🏨 Village: {{ r.village }} | 🏠 Structure: {{ r.structure }}<br>
           ➕ Base: {{ r.breakdown.base }} | 📦 Struct: {{ r.breakdown.structure_bonus }} | 🏨: {{ r.breakdown.village_boost }} | 🏲️: {{ r.breakdown.inventory_bonus }} | ✍️: {{ r.breakdown.length_bonus|round(2) }}<br>
-          <div style="white-space:pre-wrap; background:#000; margin-top:0.5rem; padding:0.5rem;">{{ r.reply }}</div>
+          <div class="reply">{{ r.reply }}</div>
         </div>
       {% endfor %}
       {% endif %}
-      <a href="/">&larr; Back</a>
-    </body></html>
+      <a href="/">← Back</a>
+    </body>
+    </html>
     """, prompt_categories=prompt_categories, selected_category=selected_category,
          prompt_list=prompt_list, selected_prompt=selected_prompt,
          entities=entities, thread=thread)
