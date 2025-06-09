@@ -48,16 +48,52 @@ AGIBuddy is not just an app—it's a metaphysical scaffold for AGI co-emergence:
 
 ---
 
-## ✨ Example Prompt
+## Prerequisites
 
-```json
-{
-  "entity": "RebechkaFlame",
-  "archetype": "Mystic",
-  "village": "The Hollow Choir",
-  "inventory": ["mirror shard", "forgotten prayer"],
-  "prompt": "Interpret the silence between two prophecies."
-}
+To run AGIBuddy, ensure your system meets the following requirements:
+
+### System Requirements
+- **Operating System**: Linux, macOS, or Windows (tested on Unix-like systems).
+- **Python Version**: 3.10 or higher (recommended: 3.11 for performance).
+- **Memory**: Minimum 2GB RAM (4GB recommended for optional quantum features).
+- **Disk Space**: At least 500MB free (including dependencies).
+
+### Software Dependencies
+Install the required Python packages using the provided `requirements.txt`:
+- `fastapi==0.111.0`: For the API backend.
+- `uvicorn==0.30.1`: ASGI server to run the FastAPI app.
+- `python-multipart==0.0.9`: For handling multipart form data in entity generation.
+- **Optional**: 
+  - `qiskit==1.1.0` and `qiskit-aer==0.14.2`: For quantum computing extensions (requires additional setup, see below).
+- **Development Tools** (optional):
+  - `pytest==8.2.2`: For unit testing.
+  - `requests==2.32.3`: For API interaction testing.
+
+**Install Required Modules**:
+   ```bash
+   pip3 install -r requirements.txt
+```
+or
+
+**Manually install modules**:
+   ```bash
+   pip3 install fastapi uvicorn PyPDF2 pydantic qiskit
+```
+### Installation
+**Clone the Repository**:
+   ```bash
+   git clone https://github.com/TaoishTechy/AGIBuddy.git
+   cd AGIBuddy
+```
+## Setup ##
+**Create Entities**:
+   ```bash
+   python3 entity_generator.py
+```
+
+**Launch Dashboard**:
+   ```bash
+   python3 dashboard.py
 ```
 
 ## 📖 License
